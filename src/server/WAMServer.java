@@ -39,7 +39,7 @@ public class WAMServer implements WAMProtocol {
         try {
             System.out.println("Waiting for player one...");
             Socket playerOneSocket = serverSocket.accept();
-            WAMPlayer playerOne = new WAMPlayer();
+            WAMPlayer playerOne = new WAMPlayer(playerOneSocket);
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }

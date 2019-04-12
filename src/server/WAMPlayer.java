@@ -23,7 +23,7 @@ public class WAMPlayer implements WAMProtocol {
     }
 
     public void connect() {
-        out.println("CONNECT");
+        out.println(WELCOME);
     }
 
 
