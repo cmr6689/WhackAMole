@@ -15,13 +15,14 @@ public class WAMNetworkClient {
     private PrintStream networkOut;
     private WAMBoard board;
     private boolean go;
+    private int rows;
+    private int columns;
 
-    public WAMNetworkClient(String host, int port, WAMBoard board) throws Exception {
+    public WAMNetworkClient(String host, int port) throws Exception {
         try {
             this.clientSocket = new Socket(host, port);
             this.networkIn = new Scanner(clientSocket.getInputStream());
             this.networkOut = new PrintStream(clientSocket.getOutputStream());
-            this.board = board;
 
             String request = this.networkIn.next();
             String arguments = this.networkIn.nextLine();
@@ -49,6 +50,25 @@ public class WAMNetworkClient {
         //this.board.close;
     }
 
+    public WAMBoard getBoard() {
+        return this.board;
+    }
+
+    public void welcome(String arguments) {
+        String[] fields = arguments.trim().split(" ");
+        this.rows = Integer.parseInt(fields[0]);
+        this.columns = Integer.parseInt(fields[1]);
+        this.board = new WAMBoard(rows*columns);
+    }
+
+    public int getColumns() {
+        return this.columns;
+    }
+
+    public int getRows() {
+        return this.rows;
+    }
+
     private void run(){
         while (this.go){
             try{
@@ -57,6 +77,7 @@ public class WAMNetworkClient {
                 //networkOut.println("");
                 switch (request) {
                     case WAMProtocol.WELCOME:
+                        welcome(arguments);
                         continue;
                     case WAMProtocol.ERROR:
                         continue;

@@ -27,9 +27,9 @@ public class WAMGUI extends Application {
 
 
     public void start(Stage stage) throws Exception {
-        Button[][] boardarr = new Button[7][6];
-        for (int i = 0; i < boardarr.length; i++) {
-            for (int x = 0; x < boardarr[i].length; x++) {
+        Button[][] boardarr = new Button[client.getColumns()][client.getRows()];
+        for (int i = 0; i < client.getColumns(); i++) {
+            for (int x = 0; x < client.getRows(); x++) {
                 boardarr[i][x] = new Button();
                 //Image image = new Image(getClass().getResourceAsStream("empty.png"));
                 //boardarr[i][x].setGraphic(new ImageView(image));
@@ -62,9 +62,8 @@ public class WAMGUI extends Application {
             String host = args.get(0);
             int port = Integer.parseInt(args.get(1));
 
-            board = new WAMBoard(9);
-
-            client = new WAMNetworkClient(host, port, board);
+            client = new WAMNetworkClient(host, port);
+            board = new WAMBoard(client.getColumns()*client.getRows());
         }
         catch(NumberFormatException e){
             System.err.println(e);
