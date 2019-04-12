@@ -32,7 +32,7 @@ public class WAMNetworkClient {
     }
 
     public void startListener(){
-        //new Thread(() -> this.run()).start();
+        new Thread(() -> this.run()).start();
     }
 
     public void stop(){

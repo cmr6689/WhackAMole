@@ -36,9 +36,11 @@ public class WAMBoard {
 
     public void moleUp(int mole) {
         this.board[mole] = true;
+        alertObservers();
     }
 
     public void moleDown(int mole) {
         this.board[mole] = false;
+        alertObservers();
     }
 }

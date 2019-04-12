@@ -56,20 +56,20 @@ public class WAMGUI extends Application {
 
     @Override
     public void init() throws Exception {
-        /*try {
+        try {
             List<String> args = getParameters().getRaw();
 
             String host = args.get(0);
             int port = Integer.parseInt(args.get(1));
 
-            board = new WAMBoard();
+            board = new WAMBoard(9);
 
             client = new WAMNetworkClient(host, port, board);
         }
         catch(NumberFormatException e){
             System.err.println(e);
             throw new RuntimeException(e);
-        }*/
+        }
     }
 
     public static void main(String[] args){
