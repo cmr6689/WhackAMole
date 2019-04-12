@@ -43,5 +43,6 @@ public class WAMServer implements WAMProtocol {
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+        WAMGame game = new WAMGame();
     }
 }
