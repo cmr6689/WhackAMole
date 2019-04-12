@@ -5,14 +5,15 @@ import java.util.List;
 
 public class WAMBoard {
 
-    public static int ROWS;
-    public static int COLS;
-
+    private boolean[] board;
     private List<Observer<WAMBoard>> observers;
 
-    public WAMBoard(){
+    public WAMBoard(int numMoles){
         this.observers = new LinkedList<>();
-        //this
+        this.board = new boolean[numMoles];
+        for (int num = 0; num < numMoles; num++) {
+            board[num] = false;
+        }
     }
 
     public void addObserver(Observer<WAMBoard> observer){
@@ -25,6 +26,19 @@ public class WAMBoard {
         }
     }
 
-    public void close(){alertObservers();}
+    public void close() {
+        alertObservers();
+    }
 
+    public boolean getContents(int mole) {
+        return this.board[mole];
+    }
+
+    public void moleUp(int mole) {
+        this.board[mole] = true;
+    }
+
+    public void moleDown(int mole) {
+        this.board[mole] = false;
+    }
 }

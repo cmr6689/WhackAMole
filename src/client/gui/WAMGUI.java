@@ -23,6 +23,7 @@ public class WAMGUI extends Application {
     private WAMBoard board;
     private WAMNetworkClient client;
     private BorderPane window = new BorderPane();
+    private Image mole;
 
 
     public void start(Stage stage) throws Exception {
