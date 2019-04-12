@@ -63,7 +63,7 @@ public class WAMGUI extends Application {
             int port = Integer.parseInt(args.get(1));
 
             client = new WAMNetworkClient(host, port);
-            board = new WAMBoard(client.getColumns()*client.getRows());
+            board = client.getBoard();
         }
         catch(NumberFormatException e){
             System.err.println(e);
