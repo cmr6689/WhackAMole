@@ -2,6 +2,7 @@ package client.gui;
 
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,7 +17,7 @@ import server.WAMGame;
 
 import java.util.List;
 
-public class WAMGUI extends Application {
+public class WAMGUI extends Application implements Observer<WAMBoard> {
 
     private GridPane boardpane = new GridPane();
     private WAMGame game;
@@ -62,12 +63,26 @@ public class WAMGUI extends Application {
             String host = args.get(0);
             int port = Integer.parseInt(args.get(1));
 
-            client = new WAMNetworkClient(host, port);
-            board = client.getBoard();
+            this.client = new WAMNetworkClient(host, port);
+            this.board = client.getBoard();
+            this.board.addObserver(this);
         }
         catch(NumberFormatException e){
             System.err.println(e);
             throw new RuntimeException(e);
+        }
+    }
+
+    public void refresh() {
+
+    }
+
+    @Override
+    public void update(WAMBoard wamBoard) {
+        if (Platform.isFxApplicationThread()) {
+            this.refresh();
+        } else {
+            Platform.runLater(() -> this.refresh());
         }
     }
 
