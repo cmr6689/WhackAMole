@@ -25,13 +25,13 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
     private WAMNetworkClient client;
     private BorderPane window = new BorderPane();
     private Image mole;
-
+    Button[][] boardarr;
 
     public void start(Stage stage) throws Exception {
         client.startListener();
         while(true) {
             if (client.isWelcomed()) {
-                Button[][] boardarr = new Button[client.getColumns()][client.getRows()];
+                this.boardarr = new Button[client.getColumns()][client.getRows()];
                 for (int i = 0; i < client.getColumns(); i++) {
                     for (int x = 0; x < client.getRows(); x++) {
                         boardarr[i][x] = new Button();
@@ -76,7 +76,17 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
     }
 
     public void refresh() {
-
+        for (int i = 0; i < client.getColumns(); i++) {
+            for (int x = 0; x < client.getRows(); x++) {
+                if (this.board.getContents(i, x)) {
+                    Image image = new Image(getClass().getResourceAsStream("/common/mole_64x64.jpg"));
+                    boardarr[i][x].setGraphic(new ImageView(image));
+                } else {
+                    Image image = new Image(getClass().getResourceAsStream("/common/empty_mole.jpg"));
+                    boardarr[i][x].setGraphic(new ImageView(image));
+                }
+            }
+        }
     }
 
     @Override

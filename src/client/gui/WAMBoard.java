@@ -18,7 +18,8 @@ public class WAMBoard {
         int count = 0;
         for (int col = 0; col < this.cols; col++) {
             for (int row = 0; row < this.rows; row++) {
-                board[col][row] = new Mole(count++, false);
+                board[col][row] = new Mole(count, false);
+                count++;
             }
         }
     }
@@ -37,13 +38,13 @@ public class WAMBoard {
         alertObservers();
     }
 
-    public Mole getContents(int col, int row) {
-        return this.board[col][row];
+    public boolean getContents(int col, int row) {
+        return this.board[col][row].isUp();
     }
 
     public void moleUp(int numMole) {
         for (int col = 0; col < this.cols; col++) {
-            for (int row = 0; row < rows; row++) {
+            for (int row = 0; row < this.rows; row++) {
                 if (board[col][row].getId() == numMole) {
                     board[col][row].moleUp();
                 }
@@ -54,7 +55,7 @@ public class WAMBoard {
 
     public void moleDown(int numMole) {
         for (int col = 0; col < this.cols; col++) {
-            for (int row = 0; row < rows; row++) {
+            for (int row = 0; row < this.rows; row++) {
                 if (board[col][row].getId() == numMole) {
                     board[col][row].moleDown();
                 }
