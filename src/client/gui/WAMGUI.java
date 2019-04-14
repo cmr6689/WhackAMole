@@ -32,15 +32,9 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         for (int i = 0; i < client.getColumns(); i++) {
             for (int x = 0; x < client.getRows(); x++) {
                 boardarr[i][x] = new Button();
-                //Image image = new Image(getClass().getResourceAsStream("empty.png"));
-                //boardarr[i][x].setGraphic(new ImageView(image));
+                Image image = new Image(getClass().getResourceAsStream("empty_mole.jpg"));
+                boardarr[i][x].setGraphic(new ImageView(image));
                 //boardarr[i][x].setOnAction(newSendMove(i));
-                //boardarr[i][x].
-                Border border = new Border(new BorderStroke(Color.BLACK,
-                        BorderStrokeStyle.SOLID, CornerRadii.EMPTY, BorderWidths.DEFAULT));
-                boardarr[i][x].setBorder(border);
-                Background background = new Background(new BackgroundFill(Color.DARKOLIVEGREEN, CornerRadii.EMPTY, Insets.EMPTY));
-                boardarr[i][x].setBackground(background);
                 boardpane.add(boardarr[i][x], i, x);
             }
         }
