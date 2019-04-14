@@ -28,24 +28,30 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
 
 
     public void start(Stage stage) throws Exception {
-        Button[][] boardarr = new Button[client.getColumns()][client.getRows()];
-        for (int i = 0; i < client.getColumns(); i++) {
-            for (int x = 0; x < client.getRows(); x++) {
-                boardarr[i][x] = new Button();
-                Image image = new Image(getClass().getResourceAsStream("empty_mole.jpg"));
-                boardarr[i][x].setGraphic(new ImageView(image));
-                //boardarr[i][x].setOnAction(newSendMove(i));
-                boardpane.add(boardarr[i][x], i, x);
+        client.startListener();
+        while(true) {
+            if (client.isWelcomed()) {
+                Button[][] boardarr = new Button[client.getColumns()][client.getRows()];
+                for (int i = 0; i < client.getColumns(); i++) {
+                    for (int x = 0; x < client.getRows(); x++) {
+                        boardarr[i][x] = new Button();
+                        Image image = new Image(getClass().getResourceAsStream("./common/empty_mole.jpg"));
+                        boardarr[i][x].setGraphic(new ImageView(image));
+                        //boardarr[i][x].setOnAction(newSendMove(i));
+                        boardpane.add(boardarr[i][x], i, x);
+                    }
+                }
+
+                window.setCenter(boardpane);
+                Scene scene = new Scene(window);
+                stage.setScene(scene);
+                stage.setTitle("WackAMole Game");
+                stage.sizeToScene();
+                stage.setResizable(false);
+                stage.show();
+                break;
             }
         }
-
-        window.setCenter(boardpane);
-        Scene scene = new Scene(window);
-        stage.setScene(scene);
-        stage.setTitle("WackAMole Game");
-        stage.sizeToScene();
-        stage.setResizable(false);
-        stage.show();
 
     }
 

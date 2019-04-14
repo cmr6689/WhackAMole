@@ -15,6 +15,7 @@ public class WAMNetworkClient {
     private PrintStream networkOut;
     private WAMBoard board;
     private boolean go;
+    private boolean welcomed;
     private int rows;
     private int columns;
 
@@ -23,9 +24,10 @@ public class WAMNetworkClient {
             this.clientSocket = new Socket(host, port);
             this.networkIn = new Scanner(clientSocket.getInputStream());
             this.networkOut = new PrintStream(clientSocket.getOutputStream());
-
-            String request = this.networkIn.next();
-            String arguments = this.networkIn.nextLine();
+            this.go=true;
+            this.welcomed= false;
+            //String request = this.networkIn.next();
+            //String arguments = this.networkIn.nextLine();
 
         } catch (IOException e) {
             throw new Exception(e);
@@ -59,6 +61,10 @@ public class WAMNetworkClient {
         this.rows = Integer.parseInt(fields[0]);
         this.columns = Integer.parseInt(fields[1]);
         this.board = new WAMBoard(rows, columns);
+        this.welcomed=true;
+    }
+    public boolean isWelcomed(){
+        return this.welcomed;
     }
 
     public int getColumns() {
@@ -94,7 +100,7 @@ public class WAMNetworkClient {
                 //networkOut.println("");
                 switch (request) {
                     case WAMProtocol.WELCOME:
-                        //welcome(arguments);
+                        welcome(arguments);
                         continue;
                     case WAMProtocol.ERROR:
                         throw new Exception("An error occured");
