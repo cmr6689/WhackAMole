@@ -35,7 +35,7 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
                 for (int i = 0; i < client.getColumns(); i++) {
                     for (int x = 0; x < client.getRows(); x++) {
                         boardarr[i][x] = new Button();
-                        Image image = new Image(getClass().getResourceAsStream("./common/empty_mole.jpg"));
+                        Image image = new Image(getClass().getResourceAsStream("/common/empty_mole.jpg"));
                         boardarr[i][x].setGraphic(new ImageView(image));
                         //boardarr[i][x].setOnAction(newSendMove(i));
                         boardpane.add(boardarr[i][x], i, x);
