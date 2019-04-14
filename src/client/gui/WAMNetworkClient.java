@@ -69,6 +69,23 @@ public class WAMNetworkClient {
         return this.rows;
     }
 
+    public void moleUp(String mole){
+        // toggle the mole in the array to up/true
+        System.out.println('!' + WAMProtocol.MOLE_UP + " , "+ mole);
+
+        String[] fields = mole.split(" ");
+        int update = Integer.parseInt(fields[0]);
+        board.moleUp(update);
+    }
+
+    public void moleDown(String mole){
+        System.out.println('!' + WAMProtocol.MOLE_DOWN + " , "+ mole);
+
+        String[] fields = mole.split(" ");
+        int update = Integer.parseInt(fields[0]);
+        board.moleDown(update);
+    }
+
     private void run(){
         while (this.go){
             try{
@@ -80,7 +97,7 @@ public class WAMNetworkClient {
                         welcome(arguments);
                         continue;
                     case WAMProtocol.ERROR:
-                        continue;
+                        throw new Exception("An error occured");
                     case WAMProtocol.GAME_LOST:
                         continue;
                     case WAMProtocol.GAME_TIED:
@@ -88,9 +105,9 @@ public class WAMNetworkClient {
                     case WAMProtocol.GAME_WON:
                         continue;
                     case WAMProtocol.MOLE_DOWN:
-                        continue;
+                        moleDown(arguments);
                     case WAMProtocol.MOLE_UP:
-                        continue;
+                        moleUp(arguments);
                     case WAMProtocol.SCORE:
                         continue;
                     case WAMProtocol.WHACK:
