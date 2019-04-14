@@ -31,6 +31,9 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         client.startListener();
         while(true) {
             if (client.isWelcomed()) {
+                this.board = client.getBoard();
+                //this.board = new WAMBoard(col, row);
+                this.board.addObserver(this);
                 this.boardarr = new Button[client.getColumns()][client.getRows()];
                 for (int i = 0; i < client.getColumns(); i++) {
                     for (int x = 0; x < client.getRows(); x++) {
@@ -66,9 +69,9 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
             this.client = new WAMNetworkClient(host, port);
             int col = this.client.getColumns();
             int row = this.client.getRows();
-            this.board = client.getBoard();
+            //this.board = client.getBoard();
             //this.board = new WAMBoard(col, row);
-            this.board.addObserver(this);
+            //this.board.addObserver(this);
         }
         catch(NumberFormatException e){
             System.err.println(e);
