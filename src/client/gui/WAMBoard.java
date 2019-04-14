@@ -18,7 +18,7 @@ public class WAMBoard {
         int count = 0;
         for (int col = 0; col < this.cols; col++) {
             for (int row = 0; row < this.rows; row++) {
-                board[col][row] = new Mole(count, false);
+                board[col][row] = new Mole(count++, false);
             }
         }
     }
