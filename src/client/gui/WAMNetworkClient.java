@@ -58,7 +58,7 @@ public class WAMNetworkClient {
         String[] fields = arguments.trim().split(" ");
         this.rows = Integer.parseInt(fields[0]);
         this.columns = Integer.parseInt(fields[1]);
-        this.board = new WAMBoard(rows*columns);
+        this.board = new WAMBoard(rows, columns);
     }
 
     public int getColumns() {
@@ -94,7 +94,7 @@ public class WAMNetworkClient {
                 //networkOut.println("");
                 switch (request) {
                     case WAMProtocol.WELCOME:
-                        welcome(arguments);
+                        //welcome(arguments);
                         continue;
                     case WAMProtocol.ERROR:
                         throw new Exception("An error occured");

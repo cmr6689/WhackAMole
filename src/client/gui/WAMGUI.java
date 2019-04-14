@@ -64,7 +64,9 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
             int port = Integer.parseInt(args.get(1));
 
             this.client = new WAMNetworkClient(host, port);
-            this.board = client.getBoard();
+            int col = this.client.getColumns();
+            int row = this.client.getRows();
+            this.board = new WAMBoard(col, row);
             this.board.addObserver(this);
         }
         catch(NumberFormatException e){
