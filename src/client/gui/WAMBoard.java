@@ -5,14 +5,17 @@ import java.util.List;
 
 public class WAMBoard {
 
-    private boolean[] board;
+    private Mole[][] board;
     private List<Observer<WAMBoard>> observers;
 
-    public WAMBoard(int numMoles){
+    public WAMBoard(int cols, int rows){
         this.observers = new LinkedList<>();
-        this.board = new boolean[numMoles];
-        for (int num = 0; num < numMoles; num++) {
-            board[num] = false;
+        this.board = new Mole[cols][rows];
+        int count = 0;
+        for (int col = 0; col < cols; col++) {
+            for (int row = 0; row < rows; row++) {
+                board[col][row] = new Mole(count, false);
+            }
         }
     }
 
@@ -30,17 +33,17 @@ public class WAMBoard {
         alertObservers();
     }
 
-    public boolean getContents(int mole) {
-        return this.board[mole];
+    public Mole getContents(int col, int row) {
+        return this.board[col][row];
     }
 
-    public void moleUp(int mole) {
-        this.board[mole] = true;
+    public void moleUp(int col, int row) {
+        this.board[col][row].moleUp();
         alertObservers();
     }
 
-    public void moleDown(int mole) {
-        this.board[mole] = false;
+    public void moleDown(int col, int row) {
+        this.board[col][row].moleDown();
         alertObservers();
     }
 }
