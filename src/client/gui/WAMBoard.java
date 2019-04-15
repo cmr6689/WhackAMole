@@ -3,6 +3,12 @@ package client.gui;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class represents the board of moles as a 2D
+ * array
+ * @author Cameron Riu
+ * @author Michael Madden
+ */
 public class WAMBoard {
 
     private Mole[][] board;

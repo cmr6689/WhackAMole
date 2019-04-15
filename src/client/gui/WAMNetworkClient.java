@@ -9,6 +9,13 @@ import java.net.Socket;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+/**
+ * This class connects to the server and creates a WAMBoard
+ * based off of the parameters of the welcome message from
+ * the server.
+ * @author Cameron Riu
+ * @author Michael Madden
+ */
 public class WAMNetworkClient {
     private Socket clientSocket;
     private Scanner networkIn;
@@ -19,6 +26,12 @@ public class WAMNetworkClient {
     private int rows;
     private int columns;
 
+    /**
+     * Creates a network client connected to the server
+     * @param host - hostname
+     * @param port - port number
+     * @throws Exception
+     */
     public WAMNetworkClient(String host, int port) throws Exception {
         try {
             this.clientSocket = new Socket(host, port);
@@ -34,14 +47,23 @@ public class WAMNetworkClient {
         }
     }
 
+    /**
+     * Called by the gui to listen for updates
+     */
     public void startListener(){
         new Thread(() -> this.run()).start();
     }
 
+    /**
+     * Stops the network client
+     */
     public void stop(){
         this.go = false;
     }
 
+    /**
+     * Closes the socket
+     */
     public void close(){
         try{
             this.clientSocket.close();
@@ -52,10 +74,19 @@ public class WAMNetworkClient {
         //this.board.close;
     }
 
+    /**
+     * Called by the GUI to get the board
+     * @return the WAMBoard
+     */
     public WAMBoard getBoard() {
         return this.board;
     }
 
+    /**
+     * Called after the welcome message is recieved
+     * Creates the WAMBoard based off of arguments
+     * @param arguments - sent by the server
+     */
     public void welcome(String arguments) {
         String[] fields = arguments.trim().split(" ");
         this.rows = Integer.parseInt(fields[0]);
@@ -63,18 +94,36 @@ public class WAMNetworkClient {
         this.board = new WAMBoard(columns, rows);
         this.welcomed=true;
     }
+
+    /**
+     * Lets the GUI know if the welcome message has
+     * been received
+     * @return if welcome message received
+     */
     public boolean isWelcomed(){
         return this.welcomed;
     }
 
+    /**
+     * Called by the GUI
+     * @return WAMBoard columns
+     */
     public int getColumns() {
         return this.columns;
     }
 
+    /**
+     * Called by the GUI
+     * @return WAMBoard rows
+     */
     public int getRows() {
         return this.rows;
     }
 
+    /**
+     * Update the board when MOLE_UP is received
+     * @param mole - mole number
+     */
     public void moleUp(String mole){
         // toggle the mole in the array to up/true
         System.out.println('!' + WAMProtocol.MOLE_UP + " , "+ mole);
@@ -84,6 +133,10 @@ public class WAMNetworkClient {
         board.moleUp(Integer.parseInt(mole));
     }
 
+    /**
+     * Update the board when MOLE_DOWN is received
+     * @param mole - mole number
+     */
     public void moleDown(String mole){
         System.out.println('!' + WAMProtocol.MOLE_DOWN + " , "+ mole);
 
@@ -92,6 +145,9 @@ public class WAMNetworkClient {
         board.moleDown(update);
     }
 
+    /**
+     * While the server is running get the messages
+     */
     private void run(){
         while (this.go){
             try{
