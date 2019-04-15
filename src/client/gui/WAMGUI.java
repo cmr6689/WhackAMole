@@ -80,8 +80,8 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
     }
 
     public void refresh() {
-        for (int i = 0; i < client.getColumns(); i++) {
-            for (int x = 0; x < client.getRows(); x++) {
+        for (int i = 0; i < client.getColumns()-1; i++) {
+            for (int x = 0; x < client.getRows()-1; x++) {
                 if (this.board.getContents(i, x).isUp()) {
                     Image image = new Image(getClass().getResourceAsStream("/common/mole_64x64.jpg"));
                     boardarr[i][x].setGraphic(new ImageView(image));
