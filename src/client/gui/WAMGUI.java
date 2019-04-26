@@ -27,7 +27,11 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
     private Image mole;
     private Button[][] boardarr;
 
-    public void start(Stage stage) throws Exception {
+    /**
+     * start the gui
+     * @param stage - stage to use to start the gui
+     */
+    public void start(Stage stage) {
         client.startListener();
         while(true) {
             if (client.isWelcomed()) {
@@ -58,6 +62,9 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
 
     }
 
+    /**
+     * init the gui and start a client instance
+     */
     @Override
     public void init() throws Exception {
         try {
@@ -79,6 +86,9 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         }
     }
 
+    /**
+     * refresh the gui and update image graphics if need be for each mole
+     */
     public void refresh() {
         for (int i = 0; i < client.getColumns(); i++) {
             for (int x = 0; x < client.getRows(); x++) {
@@ -93,6 +103,10 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         }
     }
 
+    /**
+     * update the gui game board.
+     * @param wamBoard - the board instance that will be referenced during an update
+     */
     @Override
     public void update(WAMBoard wamBoard) {
         if (Platform.isFxApplicationThread()) {
@@ -102,6 +116,10 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         }
     }
 
+    /**
+     * main entry point for the gui
+     * @param args - command line args
+     */
     public static void main(String[] args){
         if (args.length != 2){
             System.out.println("Usage java WAMGUI host port");
