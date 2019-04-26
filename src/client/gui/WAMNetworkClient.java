@@ -35,6 +35,7 @@ public class WAMNetworkClient {
     public WAMNetworkClient(String host, int port) throws Exception {
         try {
             this.clientSocket = new Socket(host, port);
+            System.out.println(clientSocket);
             this.networkIn = new Scanner(clientSocket.getInputStream());
             this.networkOut = new PrintStream(clientSocket.getOutputStream());
             this.go=true;
@@ -71,6 +72,8 @@ public class WAMNetworkClient {
         catch(IOException e){
 
         }
+        this.welcomed=false;
+        this.go=false;
         //this.board.close;
     }
 
@@ -88,11 +91,18 @@ public class WAMNetworkClient {
      * @param arguments - sent by the server
      */
     public void welcome(String arguments) {
+        System.out.println("got welcome");
         String[] fields = arguments.trim().split(" ");
         this.rows = Integer.parseInt(fields[0]);
         this.columns = Integer.parseInt(fields[1]);
         this.board = new WAMBoard(columns, rows);
+        //this.wait(500);
+        //this.notifyAll();
+
         this.welcomed=true;
+        this.go=true;
+
+
     }
 
     /**
@@ -140,9 +150,9 @@ public class WAMNetworkClient {
     public void moleDown(String mole){
         System.out.println('!' + WAMProtocol.MOLE_DOWN + " , "+ mole);
 
-        String[] fields = mole.split(" ");
-        int update = Integer.parseInt(fields[0]);
-        board.moleDown(update);
+        //String[] fields = mole.split(" ");
+        //int update = Integer.parseInt(fields[0]);
+        board.moleDown(Integer.parseInt(mole));
     }
 
     /**
@@ -150,30 +160,40 @@ public class WAMNetworkClient {
      */
     private void run(){
         while (this.go){
-            try{
+            System.out.println("read message");
+            try{/*
                 String request = this.networkIn.next();
+                System.out.println("Request "+request);
                 String arguments = this.networkIn.nextLine().trim();
+                */
+                String value = this.networkIn.nextLine();
+                System.out.println(value);
+                int space = value.indexOf(" ");
+                String request = value.substring(0, space);
+                String arguments = value.substring(space).trim();
                 //networkOut.println("");
                 switch (request) {
                     case WAMProtocol.WELCOME:
                         welcome(arguments);
-                        continue;
+                        break;
                     case WAMProtocol.ERROR:
                         throw new Exception("An error occured");
                     case WAMProtocol.GAME_LOST:
-                        continue;
+                        break;
                     case WAMProtocol.GAME_TIED:
-                        continue;
+                        break;
                     case WAMProtocol.GAME_WON:
-                        continue;
+                        break;
                     case WAMProtocol.MOLE_DOWN:
                         moleDown(arguments);
+                        break;
                     case WAMProtocol.MOLE_UP:
                         moleUp(arguments);
+                        break;
                     case WAMProtocol.SCORE:
-                        continue;
+                        break;
                     case WAMProtocol.WHACK:
-                        continue;
+                        break;
                     default:
                         System.err.println("unknown request");
                         this.stop();
@@ -181,9 +201,11 @@ public class WAMNetworkClient {
                 }
             }
             catch(NoSuchElementException nse){
+                nse.printStackTrace();
                 this.stop();
             }
             catch(Exception e){
+                e.printStackTrace();
                 this.stop();
             }
         }

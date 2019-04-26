@@ -29,35 +29,44 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
 
     /**
      * start the gui
+     *
      * @param stage - stage to use to start the gui
      */
     public void start(Stage stage) {
-        client.startListener();
-        while(true) {
-            if (client.isWelcomed()) {
-                this.board = client.getBoard();
-                //this.board = new WAMBoard(col, row);
-                this.board.addObserver(this);
-                this.boardarr = new Button[client.getColumns()][client.getRows()];
-                for (int i = 0; i < client.getColumns(); i++) {
-                    for (int x = 0; x < client.getRows(); x++) {
-                        boardarr[i][x] = new Button();
-                        Image image = new Image(getClass().getResourceAsStream("/common/empty_mole.jpg"));
-                        boardarr[i][x].setGraphic(new ImageView(image));
-                        //boardarr[i][x].setOnAction(newSendMove(i));
-                        boardpane.add(boardarr[i][x], i, x);
-                    }
-                }
-
-                window.setCenter(boardpane);
-                Scene scene = new Scene(window);
-                stage.setScene(scene);
-                stage.setTitle("WackAMole Game");
-                stage.sizeToScene();
-                stage.setResizable(false);
-                stage.show();
-                break;
+        //client.startListener();
+        while (!client.isWelcomed()) {
+            System.out.println("not welcome");
+            try {
+                Thread.sleep(500);
+                System.out.println("slept");
+            } catch (InterruptedException e) {
             }
+        }
+        System.out.println("past while");
+
+        if (client.isWelcomed()) {
+            this.board = client.getBoard();
+            //this.board = new WAMBoard(col, row);
+            this.board.addObserver(this);
+            this.boardarr = new Button[client.getColumns()][client.getRows()];
+            for (int i = 0; i < client.getColumns(); i++) {
+                for (int x = 0; x < client.getRows(); x++) {
+                    boardarr[i][x] = new Button();
+                    Image image = new Image(getClass().getResourceAsStream("/common/empty_mole.jpg"));
+                    boardarr[i][x].setGraphic(new ImageView(image));
+                    //boardarr[i][x].setOnAction(newSendMove(i));
+                    boardpane.add(boardarr[i][x], i, x);
+                }
+            }
+            window.setCenter(boardpane);
+            Scene scene = new Scene(window);
+            stage.setScene(scene);
+            stage.setTitle("WackAMole Game");
+            stage.sizeToScene();
+            stage.setResizable(false);
+            stage.show();
+
+
         }
 
     }
@@ -76,11 +85,15 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
             this.client = new WAMNetworkClient(host, port);
             int col = this.client.getColumns();
             int row = this.client.getRows();
+            client.startListener();
+
+            //if (client.isWelcomed()) {
+            //  board.addObserver(this);
             //this.board = client.getBoard();
+            //}
             //this.board = new WAMBoard(col, row);
             //this.board.addObserver(this);
-        }
-        catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             System.err.println(e);
             throw new RuntimeException(e);
         }
@@ -93,11 +106,11 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         for (int i = 0; i < client.getColumns(); i++) {
             for (int x = 0; x < client.getRows(); x++) {
                 if (this.board.getContents(i, x).isUp()) {
-                    Image image = new Image(getClass().getResourceAsStream("/common/mole_64x64.jpg"));
-                    boardarr[i][x].setGraphic(new ImageView(image));
-                } else {
-                    Image image = new Image(getClass().getResourceAsStream("/common/empty_mole.jpg"));
-                    boardarr[i][x].setGraphic(new ImageView(image));
+                    Image up = new Image(getClass().getResourceAsStream("/common/mole_64x64.jpg"));
+                    boardarr[i][x].setGraphic(new ImageView(up));
+                } else if (!(this.board.getContents(i, x).isUp())) {
+                    Image down = new Image(getClass().getResourceAsStream("/common/empty_mole.jpg"));
+                    boardarr[i][x].setGraphic(new ImageView(down));
                 }
             }
         }
@@ -105,6 +118,7 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
 
     /**
      * update the gui game board.
+     *
      * @param wamBoard - the board instance that will be referenced during an update
      */
     @Override
@@ -118,14 +132,14 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
 
     /**
      * main entry point for the gui
+     *
      * @param args - command line args
      */
-    public static void main(String[] args){
-        if (args.length != 2){
+    public static void main(String[] args) {
+        if (args.length != 2) {
             System.out.println("Usage java WAMGUI host port");
             System.exit(-1);
-        }
-        else {
+        } else {
             Application.launch(args);
         }
     }
