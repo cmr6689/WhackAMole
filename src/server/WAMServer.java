@@ -13,6 +13,7 @@ public class WAMServer implements WAMProtocol {
     private int columns;
     private int numPlayers = 1;
     private int runTime;
+    private WAMPlayer[] players;
 
     public WAMServer(int port, int rows, int columns, int numPlayers, int runTime) {
         try {
@@ -43,11 +44,12 @@ public class WAMServer implements WAMProtocol {
             Socket playerOneSocket = serverSocket.accept();
             for (int i = 0; i < numPlayers; i++) {
                 WAMPlayer player = new WAMPlayer(playerOneSocket);
+                this.players[i] = player;
                 System.out.println("Player " + i + " connected!");
                 new Thread().run();
             }
             System.out.println("Starting game!");
-            WAMGame game = new WAMGame();
+            WAMGame game = new WAMGame(this.players, this.runTime);
             new Thread().run();
         } catch (IOException ioe) {
             ioe.printStackTrace();
