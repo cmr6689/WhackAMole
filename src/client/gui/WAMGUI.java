@@ -25,7 +25,7 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
     private WAMNetworkClient client;
     private BorderPane window = new BorderPane();
     private Image mole;
-    private Button[][] boardarr;
+    Button[][] boardarr;
 
     /**
      * start the gui
