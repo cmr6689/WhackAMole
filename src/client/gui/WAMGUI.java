@@ -25,7 +25,7 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
     private WAMNetworkClient client;
     private BorderPane window = new BorderPane();
     private Image mole;
-    Button[][] boardarr;
+    private Button[][] boardarr;
 
     public void start(Stage stage) throws Exception {
         client.startListener();
