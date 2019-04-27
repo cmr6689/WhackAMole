@@ -1,5 +1,6 @@
 package server;
 
+import client.gui.WAMBoard;
 import com.sun.javafx.scene.PointLightHelper;
 import common.WAMProtocol;
 
@@ -14,6 +15,7 @@ public class WAMServer implements WAMProtocol {
     private int numPlayers = 1;
     private int runTime;
     private WAMPlayer[] players;
+    private WAMBoard board;
 
     public WAMServer(int port, int rows, int columns, int numPlayers, int runTime) {
         try {
@@ -26,6 +28,7 @@ public class WAMServer implements WAMProtocol {
         if (numPlayers > 1) this.numPlayers = numPlayers;
         this.runTime = runTime;
         this.players = new WAMPlayer[numPlayers];
+        this.board = new WAMBoard(columns, rows);
     }
 
     public static void main(String[] args) {
@@ -50,10 +53,22 @@ public class WAMServer implements WAMProtocol {
                 new Thread(player).run();
             }
             System.out.println("Starting game!");
-            WAMGame game = new WAMGame(this.players, this.runTime);
+            WAMGame game = new WAMGame(this.players, this.runTime, this);
             new Thread().run();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
+    }
+
+    public int getRows(){
+        return rows;
+    }
+
+    public int getColumns(){
+        return columns;
+    }
+
+    public WAMBoard getBoard(){
+        return board;
     }
 }
