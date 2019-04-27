@@ -16,6 +16,7 @@ public class WAMServer implements WAMProtocol {
     private int runTime;
     private WAMPlayer[] players;
     private WAMBoard board;
+    private boolean running;
 
     public WAMServer(int port, int rows, int columns, int numPlayers, int runTime) {
         try {
@@ -29,6 +30,7 @@ public class WAMServer implements WAMProtocol {
         this.runTime = runTime;
         this.players = new WAMPlayer[numPlayers];
         this.board = new WAMBoard(columns, rows);
+        running=false;
     }
 
     public static void main(String[] args) {
@@ -53,6 +55,7 @@ public class WAMServer implements WAMProtocol {
                 new Thread(player).run();
             }
             System.out.println("Starting game!");
+            running=true;
             WAMGame game = new WAMGame(this.players, this.runTime, this);
             new Thread().run();
         } catch (IOException ioe) {
