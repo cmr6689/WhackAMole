@@ -8,19 +8,25 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class WAMPlayer implements WAMProtocol, Closeable {
+public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
     private Socket socket;
     private Scanner in;
     private PrintStream out;
+    private int id;
 
-    public WAMPlayer(Socket socket) {
+    public WAMPlayer(Socket socket, int id) {
         this.socket = socket;
+        this.id = id;
         try {
             this.in = new Scanner(socket.getInputStream());
             this.out = new PrintStream(socket.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int getID() {
+        return this.id;
     }
 
     public void connect() {

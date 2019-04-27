@@ -138,9 +138,9 @@ public class WAMNetworkClient {
         // toggle the mole in the array to up/true
         System.out.println('!' + WAMProtocol.MOLE_UP + " , "+ mole);
 
-        //String[] fields = mole.split(" ");
-        //int update = Integer.parseInt(fields[0]);
-        board.moleUp(Integer.parseInt(mole));
+        String[] fields = mole.split(" ");
+        int update = Integer.parseInt(fields[0]);
+        board.moleUp(update);
     }
 
     /**
