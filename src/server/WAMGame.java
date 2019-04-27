@@ -46,7 +46,7 @@ public class WAMGame implements Runnable {
             }
             // 500 2000
             try {
-                Thread.sleep(rand.nextInt(500 - 2000 + 1) + 500);
+                Thread.sleep(rand.nextInt(2000 - 500 + 1) + 500);
             } catch (InterruptedException kyle) {//
             }
         }
