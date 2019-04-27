@@ -33,6 +33,18 @@ public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
         out.println(WELCOME);
     }
 
+    public void moleUp(int mole) {
+        out.println(MOLE_UP + " " + mole);
+    }
+
+    public void moleDown(int mole) {
+        out.println(MOLE_DOWN + " " + mole);
+    }
+
+    public void whack(int mole) {
+
+    }
+
     public void gameWon() {
         out.println(GAME_WON);
     }
