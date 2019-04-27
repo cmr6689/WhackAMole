@@ -14,9 +14,8 @@ public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
     private PrintStream out;
     private int id;
 
-    public WAMPlayer(Socket socket, int id) {
+    public WAMPlayer(Socket socket) {
         this.socket = socket;
-        this.id = id;
         try {
             this.in = new Scanner(socket.getInputStream());
             this.out = new PrintStream(socket.getOutputStream());
@@ -29,8 +28,9 @@ public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
         return this.id;
     }
 
-    public void connect() {
-        out.println(WELCOME);
+    public void welcome(int rows, int columns, int numPlayers, int id) {
+        out.println(WELCOME + " " + rows + " " + columns + " " + numPlayers);
+        this.id = id;
     }
 
     public void moleUp(int mole) {
