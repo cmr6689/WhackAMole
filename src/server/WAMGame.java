@@ -22,6 +22,14 @@ public class WAMGame implements Runnable {
         boolean go = true;
         while (server.isRunning()) {
             // lets pick some random mole and toggle it
+            if(go){
+                try {
+                    Thread.sleep(5000);
+                }
+                catch(InterruptedException e) {//
+                }
+            }
+            go=false;
             int max = server.getColumns() * server.getRows();
             Random rand = new Random();
             int temp = rand.nextInt(max - 1);
