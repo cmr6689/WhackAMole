@@ -36,13 +36,13 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         //client.startListener();
         while (!client.isWelcomed()) {
             System.out.println("not welcome");
-            //try {
-                //Thread.sleep(500);
+            try {
+                Thread.sleep(500);
                 //System.out.println("slept");
-            //} catch (InterruptedException e) {
-            //}
+            } catch (InterruptedException e) {
+            }
         }
-        //System.out.println("past while");
+        System.out.println("past not welcome");
 
         if (client.isWelcomed()) {
             this.board = client.getBoard();
