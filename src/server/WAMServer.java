@@ -49,7 +49,7 @@ public class WAMServer implements WAMProtocol {
             System.out.println("Waiting for players...");
             Socket playerOneSocket = serverSocket.accept();
             for (int i = 0; i < numPlayers; i++) {
-                WAMPlayer player = new WAMPlayer(playerOneSocket, i);
+                WAMPlayer player = new WAMPlayer(playerOneSocket);
                 this.players[i] = player;
                 System.out.println("Player " + i + " connected!");
                 new Thread(player).run();
@@ -73,5 +73,8 @@ public class WAMServer implements WAMProtocol {
 
     public WAMBoard getBoard(){
         return board;
+    }
+    public boolean isRunning(){
+        return running;
     }
 }
