@@ -38,5 +38,9 @@ public class WAMGame implements Runnable {
                 board.moleUp(temp);
             }
         }
+        for(WAMPlayer player: players){
+            player.close();
+            server.close();
+        }
     }
 }
