@@ -83,6 +83,17 @@ public class WAMBoard {
         alertObservers();
     }
 
+    public Mole moleStatus(int numMole){
+        for (int col = 0; col < this.cols; col++) {
+            for (int row = 0; row < rows; row++) {
+                if (board[col][row].getId() == numMole) {
+                    return board[col][row];
+                }
+            }
+        }
+        return null;
+    }
+
     /**
      * toggle the mole down, based on the mole number thats passed into the method
      * @param numMole - mole number
