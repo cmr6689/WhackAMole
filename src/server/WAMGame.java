@@ -2,6 +2,8 @@ package server;
 
 import client.gui.WAMBoard;
 
+import java.util.Random;
+
 public class WAMGame implements Runnable {
     private WAMPlayer[] players;
     private int runTime;
@@ -20,8 +22,21 @@ public class WAMGame implements Runnable {
         boolean go = true;
         while (true) {
             // lets pick some random mole and toggle it
-            //server.ge
-
+            int max = server.getColumns() * server.getRows();
+            Random rand = new Random();
+            int temp = rand.nextInt(max-1);
+            if(board.moleStatus(temp).isUp()){
+                for(WAMPlayer player: players){
+                    player.moleDown(temp);
+                }
+                board.moleDown(temp);
+            }
+            else {
+                for(WAMPlayer player: players){
+                    player.moleUp(temp);
+                }
+                board.moleUp(temp);
+            }
         }
     }
 }
