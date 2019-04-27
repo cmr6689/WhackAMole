@@ -29,7 +29,7 @@ public class WAMServer implements WAMProtocol {
 
     public static void main(String[] args) {
         if (args.length != 5) {
-            System.out.println("Usage: java WAMServer <port>, <rows>, <columns>, <numPlayers>, <runTime>");
+            System.out.println("Usage: java WAMServer <port> <rows> <columns> <numPlayers> <runTime>");
             System.exit(1);
         }
         WAMServer server = new WAMServer(Integer.parseInt(args[0]),
