@@ -24,21 +24,25 @@ public class WAMGame implements Runnable {
             // lets pick some random mole and toggle it
             int max = server.getColumns() * server.getRows();
             Random rand = new Random();
-            int temp = rand.nextInt(max-1);
-            if(board.moleStatus(temp).isUp()){
-                for(WAMPlayer player: players){
+            int temp = rand.nextInt(max - 1);
+            if (board.moleStatus(temp).isUp()) {
+                for (WAMPlayer player : players) {
                     player.moleDown(temp);
                 }
                 board.moleDown(temp);
-            }
-            else {
-                for(WAMPlayer player: players){
+            } else {
+                for (WAMPlayer player : players) {
                     player.moleUp(temp);
                 }
                 board.moleUp(temp);
             }
+            // 500 2000
+            try {
+                Thread.sleep(rand.nextInt(500 - 2000 + 1) + 500);
+            } catch (InterruptedException kyle) {//
+            }
         }
-        for(WAMPlayer player: players){
+        for (WAMPlayer player : players) {
             player.close();
             server.close();
         }
