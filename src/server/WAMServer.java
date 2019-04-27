@@ -50,7 +50,7 @@ public class WAMServer implements WAMProtocol {
                 new Thread(player).run();
             }
             System.out.println("Starting game!");
-            WAMGame game = new WAMGame(this.players, this.runTime);
+            WAMGame game = new WAMGame(this.players, this.runTime, this);
             new Thread().run();
         } catch (IOException ioe) {
             ioe.printStackTrace();
