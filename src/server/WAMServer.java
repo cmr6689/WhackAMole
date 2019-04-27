@@ -25,6 +25,7 @@ public class WAMServer implements WAMProtocol {
         this.columns = columns;
         if (numPlayers > 1) this.numPlayers = numPlayers;
         this.runTime = runTime;
+        this.players = new WAMPlayer[numPlayers];
     }
 
     public static void main(String[] args) {
