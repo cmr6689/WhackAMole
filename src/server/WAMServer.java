@@ -43,10 +43,10 @@ public class WAMServer implements WAMProtocol {
             System.out.println("Waiting for players...");
             Socket playerOneSocket = serverSocket.accept();
             for (int i = 0; i < numPlayers; i++) {
-                WAMPlayer player = new WAMPlayer(playerOneSocket);
+                WAMPlayer player = new WAMPlayer(playerOneSocket, i);
                 this.players[i] = player;
                 System.out.println("Player " + i + " connected!");
-                new Thread().run();
+                new Thread(player).run();
             }
             System.out.println("Starting game!");
             WAMGame game = new WAMGame(this.players, this.runTime);
