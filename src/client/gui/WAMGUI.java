@@ -130,6 +130,11 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         }
     }
 
+    @Override
+    public void stop() {
+        client.close();
+    }
+
     /**
      * main entry point for the gui
      *
