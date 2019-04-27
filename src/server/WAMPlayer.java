@@ -28,8 +28,8 @@ public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
         return this.id;
     }
 
-    public void welcome(int rows, int columns, int numPlayers, int id) {
-        out.println(WELCOME + " " + rows + " " + columns + " " + numPlayers);
+    public void welcome(int rows, int columns, int id) {
+        out.println(WELCOME + " " + rows + " " + columns);
         this.id = id;
     }
 

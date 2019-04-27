@@ -52,7 +52,7 @@ public class WAMServer implements WAMProtocol {
             for (int i = 0; i < numPlayers; i++) {
                 Socket socket = serverSocket.accept();
                 WAMPlayer player = new WAMPlayer(socket);
-                player.welcome(Integer.parseInt(arg[1]), Integer.parseInt(arg[2]), Integer.parseInt(arg[3]), i);
+                player.welcome(Integer.parseInt(arg[1]), Integer.parseInt(arg[2]), i);
                 this.players[i] = player;
                 System.out.println("Player " + i + " connected!");
                 new Thread(player).run();
