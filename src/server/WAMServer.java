@@ -17,6 +17,7 @@ public class WAMServer implements WAMProtocol {
     private WAMPlayer[] players;
     private WAMBoard board;
     private boolean running;
+    private static String[] arg;
 
     public WAMServer(int port, int rows, int columns, int numPlayers, int runTime) {
         try {
@@ -34,6 +35,7 @@ public class WAMServer implements WAMProtocol {
     }
 
     public static void main(String[] args) {
+        arg = args;
         if (args.length != 5) {
             System.out.println("Usage: java WAMServer <port> <rows> <columns> <numPlayers> <runTime>");
             System.exit(1);
@@ -50,6 +52,7 @@ public class WAMServer implements WAMProtocol {
             Socket playerOneSocket = serverSocket.accept();
             for (int i = 0; i < numPlayers; i++) {
                 WAMPlayer player = new WAMPlayer(playerOneSocket);
+                player.welcome(Integer.parseInt(arg[0]), Integer.parseInt(arg[1]), Integer.parseInt(arg[2]), i);
                 this.players[i] = player;
                 System.out.println("Player " + i + " connected!");
                 new Thread(player).run();
@@ -57,7 +60,7 @@ public class WAMServer implements WAMProtocol {
             System.out.println("Starting game!");
             running=true;
             WAMGame game = new WAMGame(this.players, this.runTime, this);
-            new Thread().run();
+            new Thread(game).run();
         } catch (IOException ioe) {
             ioe.printStackTrace();
         }
@@ -76,5 +79,13 @@ public class WAMServer implements WAMProtocol {
     }
     public boolean isRunning(){
         return running;
+    }
+
+    public void close() {
+        try {
+            serverSocket.close();
+        } catch (IOException ioe) {
+            //
+        }
     }
 }
