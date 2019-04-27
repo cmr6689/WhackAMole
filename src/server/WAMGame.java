@@ -20,7 +20,7 @@ public class WAMGame implements Runnable {
     @Override
     public void run() {
         boolean go = true;
-        while (true) {
+        while (server.isRunning()) {
             // lets pick some random mole and toggle it
             int max = server.getColumns() * server.getRows();
             Random rand = new Random();
