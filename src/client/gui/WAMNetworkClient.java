@@ -68,6 +68,8 @@ public class WAMNetworkClient {
     public void close(){
         try{
             this.clientSocket.close();
+            this.networkOut.close();
+            this.networkIn.close();
         }
         catch(IOException e){
 

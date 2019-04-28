@@ -2,7 +2,6 @@ package server;
 
 import client.gui.WAMBoard;
 
-import java.util.Calendar;
 import java.util.Random;
 
 public class WAMGame implements Runnable {
@@ -22,19 +21,9 @@ public class WAMGame implements Runnable {
 
     @Override
     public void run() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.SECOND, runTime);
-
-        System.out.println("End "+calendar.getTime());
-
-        Calendar current = Calendar.getInstance();
-        System.out.println("Current "+current.getTime());
         boolean go = true;
-        while (server.isRunning()) {
-            // lets pick some random mole and toggle it
-            if(current.compareTo(calendar) > 0){
-                break;
-            }
+        long startTime = System.currentTimeMillis();
+        while (server.isRunning() && (System.currentTimeMillis()-startTime) < (runTime*1000)+5000) {
             if(go){
                 try {
                     Thread.sleep(5000);
