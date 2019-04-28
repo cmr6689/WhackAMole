@@ -63,7 +63,9 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
                     boardpane.add(boardarr[i][x], i, x);
                 }
             }
+            HBox hBox = new HBox();
             window.setCenter(boardpane);
+            window.setBottom(hBox);
             Scene scene = new Scene(window);
             stage.setScene(scene);
             stage.setTitle("WackAMole Game");
@@ -127,6 +129,30 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
                 client.whack(String.valueOf(mole));
             }
         };
+    }
+
+    /**
+     * Helper method to disable all buttons when
+     * it is not the players turn
+     */
+    private void disableButtons() {
+        for (int row = 0; row <= client.getRows(); row++) {
+            for (int col = 0; col <= client.getColumns(); col++) {
+                boardarr[col][row].setDisable(true);
+            }
+        }
+    }
+
+    /**
+     * Helper method to enable all buttons if it
+     * is the players turn
+     */
+    private void enableButtons() {
+        for (int row = 0; row <= client.getRows(); row++) {
+            for (int col = 0; col <= client.getColumns(); col++) {
+                boardarr[col][row].setDisable(false);
+            }
+        }
     }
 
     /**
