@@ -1,17 +1,11 @@
 package server;
 
 import client.gui.WAMBoard;
-import com.sun.javafx.scene.PointLightHelper;
 import common.WAMProtocol;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
 
 public class WAMServer implements WAMProtocol {
     private ServerSocket serverSocket;
@@ -36,11 +30,7 @@ public class WAMServer implements WAMProtocol {
         this.runTime = runTime;
         this.players = new WAMPlayer[numPlayers];
         this.board = new WAMBoard(columns, rows);
-        running=false;
-
-        Calendar date = Calendar.getInstance();
-        long t = date.getTimeInMillis();
-        Date end = new Date(t + runTime);
+        running = false;
     }
 
     public static void main(String[] args) {
@@ -67,7 +57,7 @@ public class WAMServer implements WAMProtocol {
                 new Thread(player).run();
             }
             System.out.println("Starting game!");
-            running=true;
+            running = true;
             WAMGame game = new WAMGame(this.players, this.runTime, this);
             new Thread(game).run();
         } catch (IOException ioe) {
@@ -75,18 +65,19 @@ public class WAMServer implements WAMProtocol {
         }
     }
 
-    public int getRows(){
+    public int getRows() {
         return rows;
     }
 
-    public int getColumns(){
+    public int getColumns() {
         return columns;
     }
 
-    public WAMBoard getBoard(){
+    public WAMBoard getBoard() {
         return board;
     }
-    public boolean isRunning(){
+
+    public boolean isRunning() {
         return running;
     }
 
