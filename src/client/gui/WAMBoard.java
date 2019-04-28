@@ -83,6 +83,11 @@ public class WAMBoard {
         alertObservers();
     }
 
+    /**
+     * Get the mole object based on the mole number
+     * @param numMole
+     * @return
+     */
     public Mole moleStatus(int numMole){
         for (int col = 0; col < this.cols; col++) {
             for (int row = 0; row < rows; row++) {
