@@ -7,6 +7,11 @@ import common.WAMProtocol;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.Date;
 
 public class WAMServer implements WAMProtocol {
     private ServerSocket serverSocket;
@@ -32,6 +37,10 @@ public class WAMServer implements WAMProtocol {
         this.players = new WAMPlayer[numPlayers];
         this.board = new WAMBoard(columns, rows);
         running=false;
+
+        Calendar date = Calendar.getInstance();
+        long t = date.getTimeInMillis();
+        Date end = new Date(t + runTime);
     }
 
     public static void main(String[] args) {
