@@ -157,6 +157,10 @@ public class WAMNetworkClient {
         board.moleDown(Integer.parseInt(mole));
     }
 
+    /**
+     * send the whack out of the print stream with the mole number passed to this class
+     * @param mole
+     */
     public void sendWhack(int mole) {
         this.networkOut.println(WAMProtocol.WHACK + " " + mole);
     }

@@ -127,6 +127,11 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         }
     }
 
+    /**
+     * event handler for each mole based on clicking the button
+     * @param mole - number of the specific mole to wack
+     * @return the eventhandler
+     */
     private EventHandler<ActionEvent> whack(int mole) {
         return event -> {
             if (board.moleStatus(mole).isUp()) {
@@ -150,6 +155,9 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         }
     }
 
+    /**
+     * stop the client
+     */
     @Override
     public void stop() {
         client.close();
