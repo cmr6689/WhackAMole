@@ -42,7 +42,7 @@ public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
     }
 
     public void whack(int mole) {
-
+        out.println(WHACK + " " + mole);
     }
 
     public void gameWon() {

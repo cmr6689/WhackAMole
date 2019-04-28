@@ -155,6 +155,15 @@ public class WAMNetworkClient {
         board.moleDown(Integer.parseInt(mole));
     }
 
+    public void sendWhack(int mole) {
+        this.networkOut.println(WAMProtocol.WHACK + " " + mole);
+    }
+
+    public void whack(String mole) {
+        System.out.println("!" + WAMProtocol.WHACK + " , " + mole);
+        board.moleDown(Integer.parseInt(mole));
+    }
+
     /**
      * While the server is running get the messages
      */
@@ -193,6 +202,7 @@ public class WAMNetworkClient {
                     case WAMProtocol.SCORE:
                         break;
                     case WAMProtocol.WHACK:
+                        whack(arguments);
                         break;
                     default:
                         System.err.println("unknown request");

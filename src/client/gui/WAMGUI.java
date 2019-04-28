@@ -3,6 +3,8 @@ package client.gui;
 
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -49,9 +51,12 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
             //this.board = new WAMBoard(col, row);
             this.board.addObserver(this);
             this.boardarr = new Button[client.getColumns()][client.getRows()];
+            int count = 0;
             for (int i = 0; i < client.getColumns(); i++) {
                 for (int x = 0; x < client.getRows(); x++) {
                     boardarr[i][x] = new Button();
+                    boardarr[i][x].setOnAction(whack(count));
+                    count++;
                     Image image = new Image(getClass().getResourceAsStream("/common/empty_mole.jpg"));
                     boardarr[i][x].setGraphic(new ImageView(image));
                     //boardarr[i][x].setOnAction(newSendMove(i));
@@ -114,6 +119,14 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
                 }
             }
         }
+    }
+
+    private EventHandler<ActionEvent> whack(int mole) {
+        return event -> {
+            if (board.moleStatus(mole).isUp()) {
+                client.whack(String.valueOf(mole));
+            }
+        };
     }
 
     /**
