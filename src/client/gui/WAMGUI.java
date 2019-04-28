@@ -137,30 +137,6 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
     }
 
     /**
-     * Helper method to disable all buttons when
-     * it is not the players turn
-     */
-    private void disableButtons() {
-        for (int row = 0; row <= client.getRows(); row++) {
-            for (int col = 0; col <= client.getColumns(); col++) {
-                boardarr[col][row].setDisable(true);
-            }
-        }
-    }
-
-    /**
-     * Helper method to enable all buttons if it
-     * is the players turn
-     */
-    private void enableButtons() {
-        for (int row = 0; row <= client.getRows(); row++) {
-            for (int col = 0; col <= client.getColumns(); col++) {
-                boardarr[col][row].setDisable(false);
-            }
-        }
-    }
-
-    /**
      * update the gui game board.
      *
      * @param wamBoard - the board instance that will be referenced during an update
