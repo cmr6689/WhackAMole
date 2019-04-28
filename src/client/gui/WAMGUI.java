@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
@@ -28,6 +29,8 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
     private BorderPane window = new BorderPane();
     private Image mole;
     Button[][] boardarr;
+    private int score;
+    private TextField scoreBox;
 
     /**
      * start the gui
@@ -52,6 +55,7 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
             this.board.addObserver(this);
             this.boardarr = new Button[client.getColumns()][client.getRows()];
             int count = 0;
+            int score = 0;
             for (int i = 0; i < client.getColumns(); i++) {
                 for (int x = 0; x < client.getRows(); x++) {
                     boardarr[i][x] = new Button();
@@ -63,7 +67,8 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
                     boardpane.add(boardarr[i][x], i, x);
                 }
             }
-            HBox hBox = new HBox();
+            this.scoreBox = new TextField("SCORE: " + score);
+            HBox hBox = new HBox(scoreBox);
             window.setCenter(boardpane);
             window.setBottom(hBox);
             Scene scene = new Scene(window);
@@ -72,8 +77,6 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
             stage.sizeToScene();
             stage.setResizable(false);
             stage.show();
-
-
         }
 
     }
@@ -110,6 +113,7 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
      * refresh the gui and update image graphics if need be for each mole
      */
     public void refresh() {
+        this.scoreBox.setText("SCORE: " + score);
         for (int i = 0; i < client.getColumns(); i++) {
             for (int x = 0; x < client.getRows(); x++) {
                 if (this.board.getContents(i, x).isUp()) {
@@ -127,6 +131,7 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
         return event -> {
             if (board.moleStatus(mole).isUp()) {
                 client.whack(String.valueOf(mole));
+                score++;
             }
         };
     }
