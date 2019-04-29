@@ -17,6 +17,7 @@ public class WAMServer implements WAMProtocol {
     private WAMBoard board;
     private boolean running;
     private static String[] arg;
+    private WAMGame game;
 
     /**
      * WAMServer constructor for WAMGame of WAMPlayers via WAMGUI
@@ -74,7 +75,7 @@ public class WAMServer implements WAMProtocol {
             }
             System.out.println("Starting game!");
             running = true;
-            WAMGame game = new WAMGame(this.players, this.runTime, this);
+            this.game = new WAMGame(this.players, this.runTime, this);
             new Thread(game).run();
         } catch (IOException ioe) {
             ioe.printStackTrace();
