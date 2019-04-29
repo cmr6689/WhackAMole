@@ -195,10 +195,13 @@ public class WAMNetworkClient {
                     case WAMProtocol.ERROR:
                         throw new Exception("An error occured");
                     case WAMProtocol.GAME_LOST:
+                        this.stop();
                         break;
                     case WAMProtocol.GAME_TIED:
+                        this.stop();
                         break;
                     case WAMProtocol.GAME_WON:
+                        this.stop();
                         break;
                     case WAMProtocol.MOLE_DOWN:
                         moleDown(arguments);
