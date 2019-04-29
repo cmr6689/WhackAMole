@@ -15,8 +15,6 @@ public class WAMGame implements Runnable {
         this.runTime = runTime;
         this.server = server;
         this.board = server.getBoard();
-
-        //System.out.println(calendar.getTime());
     }
 
     @Override

@@ -167,6 +167,7 @@ public class WAMNetworkClient {
 
     public void whack(String mole) {
         System.out.println("!" + WAMProtocol.WHACK + " , " + mole);
+        sendWhack(Integer.parseInt(mole));
         board.moleDown(Integer.parseInt(mole));
     }
 

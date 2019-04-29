@@ -13,9 +13,11 @@ public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
     private Scanner in;
     private PrintStream out;
     private int id;
+    private int score;
 
     public WAMPlayer(Socket socket) {
         this.socket = socket;
+        this.score = 0;
         try {
             this.in = new Scanner(socket.getInputStream());
             this.out = new PrintStream(socket.getOutputStream());
@@ -43,6 +45,7 @@ public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
 
     public void whack(int mole) {
         out.println(WHACK + " " + mole);
+        this.score++;
     }
 
     public void gameWon() {
@@ -59,6 +62,10 @@ public class WAMPlayer extends Thread implements WAMProtocol, Closeable {
 
     public void error(String message) {
         out.println(ERROR + message);
+    }
+
+    public int getScore() {
+        return this.score;
     }
 
     @Override
