@@ -13,11 +13,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.AudioClip;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import server.WAMGame;
 
+import java.net.URL;
+import java.nio.file.Paths;
 import java.util.List;
 
 public class WAMGUI extends Application implements Observer<WAMBoard> {
@@ -67,6 +72,16 @@ public class WAMGUI extends Application implements Observer<WAMBoard> {
                     boardpane.add(boardarr[i][x], i, x);
                 }
             }
+
+            //need to add javafx.media and javafx.graphics to
+            //modules in vm args for audio
+
+            //URL resource = getClass().getResource("/common/Lil_Nas_X_Ft_Billy_Ray_Cyrus_-_Old_Town_Road_Remix_.mp3");
+            //Media media = new Media(resource.toString());
+            //MediaPlayer player = new MediaPlayer(media);
+            //player.play();
+
+
             this.scoreBox = new TextField("SCORE: " + score);
             HBox hBox = new HBox(scoreBox);
             window.setCenter(boardpane);
