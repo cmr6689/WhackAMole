@@ -18,6 +18,14 @@ public class WAMServer implements WAMProtocol {
     private boolean running;
     private static String[] arg;
 
+    /**
+     * WAMServer constructor for WAMGame of WAMPlayers via WAMGUI
+     * @param port - port to open the server socket on
+     * @param rows - number of rows to have in the gui
+     * @param columns - number of columns to have in the gui
+     * @param numPlayers - number of players to wait for until the game is started
+     * @param runTime - time in seconds that the game must run for
+     */
     public WAMServer(int port, int rows, int columns, int numPlayers, int runTime) {
         try {
             serverSocket = new ServerSocket(port);
@@ -33,6 +41,11 @@ public class WAMServer implements WAMProtocol {
         running = false;
     }
 
+    /**
+     * WAMServer main method
+     * @param args - command line arguments in the form of
+     *             java WAMServer <port> <rows> <columns> <numPlayers> <runTime>
+     */
     public static void main(String[] args) {
         arg = args;
         if (args.length != 5) {
@@ -45,6 +58,9 @@ public class WAMServer implements WAMProtocol {
         server.run();
     }
 
+    /**
+     * Run method for the server, will wait for all players to connect before the game is started
+     */
     public void run() {
         try {
             System.out.println("Waiting for players...");
@@ -65,22 +81,41 @@ public class WAMServer implements WAMProtocol {
         }
     }
 
+    /**
+     * get the number of rows in the game
+     * @return - int value for the number of rows
+     */
     public int getRows() {
         return rows;
     }
 
+    /**
+     * get the number of columns in the game
+     * @return - int value for the number of columns
+     */
     public int getColumns() {
         return columns;
     }
 
+    /**
+     * get the WAMBoard object
+     * @return - WAMBoard object the server is using
+     */
     public WAMBoard getBoard() {
         return board;
     }
 
+    /**
+     * is the game running?
+     * @return - boolean for whether or not the game is running
+     */
     public boolean isRunning() {
         return running;
     }
 
+    /**
+     * close the server socket, ends all connections
+     */
     public void close() {
         try {
             serverSocket.close();
